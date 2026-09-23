@@ -652,7 +652,7 @@ h1 span {
 </body>
 </html>
 
-`);
+);
 
   } catch (error) {
     console.error("Discord OAuth error:", error);
