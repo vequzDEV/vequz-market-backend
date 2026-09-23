@@ -301,91 +301,358 @@ router.get("/discord/callback", async (req, res) => {
     // SUCCESS PAGE
     // ==========================
 
-    res.send(`
-      <!DOCTYPE html>
-      <html lang="de">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VEQUZ MARKET · Login</title>
+res.send(`
 
-        <style>
-          * {
-            box-sizing: border-box;
-          }
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-          body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #050505;
-            color: white;
-            font-family: Arial, sans-serif;
-          }
+<title>VEQUZ MARKET — Login erfolgreich</title>
 
-          .box {
-            width: min(90%, 500px);
-            padding: 40px;
-            text-align: center;
-            border: 1px solid #ffff00;
-            border-radius: 20px;
-            background: #0b0b0b;
-            box-shadow:
-              0 0 30px rgba(255,255,0,.15),
-              inset 0 0 30px rgba(255,255,0,.03);
-          }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-          .check {
-            font-size: 55px;
-            color: #ffff00;
-            margin-bottom: 15px;
-          }
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-          h1 {
-            margin: 0 0 12px;
-            color: #ffff00;
-            font-size: 28px;
-          }
+body {
+  min-height: 100vh;
+  overflow: hidden;
+}
 
-          p {
-            color: #aaa;
-            margin-bottom: 25px;
-          }
+/* FULLSCREEN BACKGROUND */
 
-          strong {
-            color: white;
-          }
+.welcome {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
 
-          a {
-            display: inline-block;
-            padding: 13px 22px;
-            border-radius: 10px;
-            background: #ffff00;
-            color: #000;
-            text-decoration: none;
-            font-weight: 800;
-          }
-        </style>
-      </head>
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      <body>
-        <div class="box">
-          <div class="check">✓</div>
+  background-image:
+    linear-gradient(
+      rgba(0,0,0,0.72),
+      rgba(0,0,0,0.82)
+    ),
+    url("https://cdn.discordapp.com/attachments/1551231906392178798/1551633816173416559/323E32F2-A871-4E3C-AD4A-98C86C960B80.png?ex=6ab2af19&is=6ab15d99&hm=104b4959ed1fe8c1b7524b86a10534f7bf70d967bc98f66b13941f4fc44ad6f9");
 
-          <h1>LOGIN ERFOLGREICH</h1>
+  background-size: cover;
+  background-position: center;
+}
 
-          <p>
-            Willkommen bei VEQUZ MARKET,
-            <strong>${escapeHtml(username)}</strong>.
-          </p>
+/* YELLOW GLOW */
 
-          <a href="/">ZURÜCK ZUM MARKET →</a>
-        </div>
-      </body>
-      </html>
-    `);
+.welcome::before {
+  content: "";
+
+  position: absolute;
+  width: 600px;
+  height: 600px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background: #ffff00;
+  opacity: 0.08;
+  filter: blur(120px);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+/* CONTENT */
+
+.content {
+  position: relative;
+  z-index: 2;
+
+  width: min(92%, 900px);
+
+  text-align: center;
+
+  padding: 40px 20px;
+}
+
+/* LABEL */
+
+.label {
+  display: inline-block;
+
+  margin-bottom: 24px;
+  padding: 9px 18px;
+
+  border: 1px solid rgba(255,255,0,0.6);
+  border-radius: 999px;
+
+  color: #ffff00;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  background: rgba(0,0,0,0.35);
+
+  box-shadow:
+    0 0 20px rgba(255,255,0,0.15);
+}
+
+/* CHECK */
+
+.check {
+  margin: 0 auto 28px;
+
+  width: 86px;
+  height: 86px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffff00;
+  color: #000;
+
+  font-size: 52px;
+  font-weight: 900;
+
+  box-shadow:
+    0 0 25px rgba(255,255,0,0.8),
+    0 0 80px rgba(255,255,0,0.3);
+}
+
+/* TITLE */
+
+h1 {
+  margin: 0;
+
+  font-size: clamp(48px, 10vw, 110px);
+  line-height: 0.88;
+
+  font-weight: 900;
+  letter-spacing: -5px;
+
+  text-transform: uppercase;
+
+  color: #fff;
+
+  text-shadow:
+    0 4px 20px rgba(0,0,0,0.8);
+}
+
+h1 span {
+  display: block;
+
+  color: #ffff00;
+
+  text-shadow:
+    0 0 10px rgba(255,255,0,0.9),
+    0 0 35px rgba(255,255,0,0.35);
+}
+
+/* WELCOME */
+
+.welcome-text {
+  margin-top: 30px;
+
+  font-size: 20px;
+
+  color: #bdbdbd;
+
+  line-height: 1.5;
+}
+
+.username {
+  margin-top: 7px;
+
+  color: #fff;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+/* DIVIDER */
+
+.divider {
+  width: 90px;
+  height: 2px;
+
+  margin: 30px auto;
+
+  background: #ffff00;
+
+  box-shadow:
+    0 0 12px #ffff00;
+}
+
+/* BUTTON */
+
+.enter {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 270px;
+  min-height: 64px;
+
+  padding: 0 35px;
+
+  background: #ffff00;
+  color: #000;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.enter:hover {
+  transform: translateY(-4px);
+
+  background: #ffff66;
+
+  box-shadow:
+    0 0 20px rgba(255,255,0,0.9),
+    0 0 60px rgba(255,255,0,0.35);
+}
+
+/* BRAND */
+
+.brand {
+  margin-top: 30px;
+
+  color: rgba(255,255,255,0.45);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .content {
+    width: 94%;
+    padding: 25px 12px;
+  }
+
+  .label {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .check {
+    width: 72px;
+    height: 72px;
+
+    font-size: 43px;
+
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 52px;
+    letter-spacing: -3px;
+  }
+
+  .welcome-text {
+    margin-top: 25px;
+    font-size: 16px;
+  }
+
+  .username {
+    font-size: 23px;
+  }
+
+  .enter {
+    width: 100%;
+    min-height: 60px;
+    font-size: 16px;
+  }
+
+  .brand {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="welcome">
+
+  <div class="content">
+
+    <div class="label">
+      ✓ DISCORD VERIFIED
+    </div>
+
+    <div class="check">
+      ✓
+    </div>
+
+    <h1>
+      LOGIN
+      <span>ERFOLGREICH</span>
+    </h1>
+
+    <div class="welcome-text">
+      Willkommen zurück bei
+    </div>
+
+    <div class="username">
+      VEQUZ MARKET
+
+    </div>
+
+    <div class="divider"></div>
+
+    <a class="enter" href="/">
+      ZURÜCK ZUM MARKET →
+    </a>
+
+    <div class="brand">
+      VEQUZ MARKET · PREMIUM · FAST · SECURE
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>
+
+`);
 
   } catch (error) {
     console.error("Discord OAuth error:", error);
